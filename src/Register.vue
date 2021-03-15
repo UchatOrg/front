@@ -1,18 +1,18 @@
 <template>
   <div id="app">
     <Navbar />
-    <HeroLogin />
+    <HeroRegister />
   </div>
 </template>
 
 <script>
-import HeroLogin from "./components/HeroLogin";
+import HeroRegister from "./components/HeroRegister";
 import Navbar from "./components/Navbar";
 
 export default {
-  name: "Login",
+  name: "Register",
   components: {
-    HeroLogin,
+    HeroRegister,
     Navbar,
   },
 };

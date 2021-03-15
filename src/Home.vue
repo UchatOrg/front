@@ -1,32 +1,32 @@
 <template>
   <div id="app">
     <Navbar />
-    <HeroLogin />
+    <HeroHome />
+    <!--<HelloWorld msg="Hello Vue in CodeSandbox!" />-->
   </div>
 </template>
 
 <script>
-import HeroLogin from "./components/HeroLogin";
 import Navbar from "./components/Navbar";
+import HeroHome from "./components/HeroHome";
 
 export default {
-  name: "Login",
+  name: "Home",
   components: {
-    HeroLogin,
     Navbar,
+    HeroHome,
   },
 };
 </script>
 
 <style>
 * {
-  margin: 0px;
+  margin: 0;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 </style>
