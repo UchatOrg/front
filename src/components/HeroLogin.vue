@@ -4,29 +4,33 @@
       <h1>Login:</h1>
       <br />
       <div class="door">
-        <div class="container">
-          <p class="p">Your username:</p>
-          <input
-            class="input"
-            type="text"
-            id="username"
-            placeholder="username"
-          />
-        </div>
+        <form @submit.prevent="login">
+          <div class="container">
+            <p class="p">Your username:</p>
+            <input
+              v-model="username"
+              class="input"
+              type="text"
+              id="username"
+              placeholder="username"
+            />
+          </div>
 
-        <div class="container">
-          <p class="p">Your password:</p>
-          <input
-            class="input"
-            type="password"
-            id="password"
-            placeholder="password"
-          />
-        </div>
+          <div class="container">
+            <p class="p">Your password:</p>
+            <input
+              v-model="password"
+              class="input"
+              type="password"
+              id="password"
+              placeholder="password"
+            />
+          </div>
 
-        <div class="container">
-          <button class="button" name="button" onclick="login();">Login</button>
-        </div>
+          <div class="container">
+            <button class="button" name="button" type="submit">Login</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -35,6 +39,33 @@
 <script>
 export default {
   name: "HeroLogin",
+  data() {
+    return {
+      username: "",
+      password: "",
+    };
+  },
+  methods: {
+    login: function () {
+      const { username, password } = this;
+      fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: {
+          username: username,
+          password: password,
+        },
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+  },
+  mounted: function () {
+    this.login();
+  },
 };
 </script>
 

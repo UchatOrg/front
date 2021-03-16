@@ -1,10 +1,13 @@
 <template>
   <div class="header">
-    <a href="/"
-      ><img src="https://i.imgur.com/QPRyafY.png" width="42px" class="logo"
+    <a></a>
+    <a href="/" class="logo"
+      ><img src="https://i.imgur.com/9Hnf2pN.png" width="70px"
     /></a>
-    <a href="/register" class="active header-right">Register</a>
-    <a href="/login" class="active header-right">Login</a>
+    <div class="header-right">
+      <a class="active" href="/register">Register</a>
+      <a class="active" href="/login">Login</a>
+    </div>
   </div>
 </template>
 
@@ -16,14 +19,17 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@900&display=swap");
+
 * {
-  font-family: Rubik;
+  box-sizing: border-box;
+  font-family: "Rubik";
+  margin: 0;
 }
+
 .header {
   overflow: hidden;
   background-color: #FDB7D7;
-  padding: 10px;
-  position: relative;
+  padding: 20px 10px;
 }
 
 .header a {
@@ -35,26 +41,23 @@ export default {
   font-size: 25px;
   line-height: 25px;
   border-radius: 10px;
-  text-align: center;
 }
 
 .header a.logo {
+  font-size: 25px;
   font-weight: bold;
-  padding: 17px;
-  color: white;
+  padding: 0;
+}
+
+.header a.active:hover {
+  background-color: #ddd;
+  color: black;
 }
 
 .header a.active {
   background-color: #F8E3EC;
   color: black;
   margin-left: 10px;
-  float: right;
-}
-
-.header a.active:hover {
-  background-color: #ddd;
-  color: black;
-  cursor: pointer;
 }
 
 .header-right {
