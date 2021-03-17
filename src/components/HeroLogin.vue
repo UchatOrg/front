@@ -55,17 +55,28 @@ export default {
           password: password,
         },
       })
-        .then((response) => {
-          console.log(response);
+        .then(function(json) {
+            json.json().then(function(final) {
+              if (final.authorization) {
+                  var token = final.authorization
+                  localStorage.setItem('token', token);
+                  window.location = "/app"
+
+              } else {
+                alert("Error with your credentials")
+              }
+
+
+            });
         })
         .catch((err) => {
           console.error(err);
         });
     },
   },
-  mounted: function () {
+  /*mounted: function () {
     this.login();
-  },
+  },*/
 };
 </script>
 

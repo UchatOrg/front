@@ -6,8 +6,28 @@
 
 <script>
 export default {
-  name: "Home",
+  name: "App",
+  data() {
+    return {
+      token: ""
+    }
+  },
+  created: function() {
+    var token = localStorage.getItem('token')
+    if (token == null) {
+      window.location = "/login"
+    } else {
+      this.token = token
+    }
+  }
+
+
 };
+
+
+
+
+
 </script>
 
 <style>
