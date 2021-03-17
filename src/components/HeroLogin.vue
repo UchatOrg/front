@@ -48,7 +48,7 @@ export default {
   methods: {
     login: function () {
       const { username, password } = this;
-      fetch("http://localhost:8080/api/auth/login", {
+      fetch("http://uchatorg.herokuapp.com/api/auth/login", {
         method: "POST",
         headers: {
           username: username,
