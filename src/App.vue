@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <h1>Uchat App</h1>
+    <h2>{{ user }}</h2>
   </div>
 </template>
 
@@ -9,25 +10,34 @@ export default {
   name: "App",
   data() {
     return {
-      token: ""
+      token: "",
+      user: "",
+    };
+  },
+  created: function () {
+    var token = localStorage.getItem("token");
+    if (token == null) {
+      window.location = "/login";
+    } else {
+      this.token = token;
+      var self = this;
+      fetch("https://uchatorg.herokuapp.com/api/info/token", {
+        method: "POST",
+        headers: {
+          "token": this.token,
+        },
+      }).then(function (json) {
+        json.json().then(function (final) {
+          if (final) {
+            self.user = final;
+          } else {
+            alert("Error with your credentials");
+          }
+        });
+      });
     }
   },
-  created: function() {
-    var token = localStorage.getItem('token')
-    if (token == null) {
-      window.location = "/login"
-    } else {
-      this.token = token
-    }
-  }
-
-
 };
-
-
-
-
-
 </script>
 
 <style>
