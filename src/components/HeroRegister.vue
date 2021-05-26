@@ -101,7 +101,7 @@ export default {
       })
         .then(function(json) {
             json.json().then(function(final) {
-              if (final.message == "Utilisateur enregistré") {
+              if (final.message == "youpi") {
                   alert("utilisateur enregistré");
                   window.location.href = "/login";
               } else {

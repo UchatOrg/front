@@ -36,7 +36,7 @@
             <div class="container">
               <div class="post">
                 <div class="username">
-                  @{{ username }}
+                  @{{ user.username }}
                 </div>
                 <div class="content">
                   {{ user.bio}}
@@ -65,7 +65,6 @@ export default {
     return {
       token: "",
       user: "",
-      username: ""
 
     };
   },
@@ -89,6 +88,7 @@ export default {
         json.json().then(function (final) {
           if (final) {
             self.user = final.user;
+            console.log(self.user);
           } else {
             alert("Error with your credentials");
           }

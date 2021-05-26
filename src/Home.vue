@@ -2,19 +2,20 @@
   <div id="app">
     <Navbar />
     <HeroHome />
-    <!--<HelloWorld msg="Hello Vue in CodeSandbox!" />-->
+
   </div>
 </template>
 
 <script>
-import Navbar from "./components/Navbar";
 import HeroHome from "./components/HeroHome";
+import Navbar from "./components/Navbar";
+
 
 export default {
   name: "Home",
   components: {
-    Navbar,
     HeroHome,
+    Navbar,
   },
 };
 </script>
