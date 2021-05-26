@@ -32,30 +32,25 @@
           <div class="left"></div>
           <div class="middle">
           <div class="container">
-            <div class="post">
-              <div class="username">
-                @saravenpi
-              </div>
-              <div class="content">
-                {{ user.username }}
-              </div>
-              <div class="description">
-                magnificient!
-              </div>
-            </div>
-            </div></div>
+            <PostForm />
           <div class="right"></div>
         </div>
       </div>
   </div>
+</div>
+</div>
 </template>
 
 
 
 
 <script>
+import PostForm from "./components/PostForm.vue"
 export default {
   name: "Publish",
+  components: {
+    PostForm,
+  },
   data() {
     return {
       token: "",
