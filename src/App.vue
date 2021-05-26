@@ -11,7 +11,9 @@
           <a class="active" href="/publish">Publish</a>
         </div>
         <div class="middle">
-          <img src="https://i.imgur.com/9Hnf2pN.png" width="6%" />
+          <a href="/app">
+          <img  src="https://i.imgur.com/9Hnf2pN.png" width="6%" />
+        </a>
         </div>
         <div class="right">
           <a class="active":href="'/profile?u=' + user.username"><img :src="user.avatar" style="border-radius: 50%" width="6%"> {{user.username}}</a>
@@ -86,7 +88,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@900&display=swap");
 
 * {

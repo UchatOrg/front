@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Navbar />
+  
     <HeroRegister />
   </div>
 </template>
@@ -18,7 +19,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 * {
   margin: 0px;
 }

@@ -5,9 +5,11 @@
   </div>
 </template>
 
-<script>
-import HeroLogin from "./components/HeroLogin";
+<script scoped>
+
 import Navbar from "./components/Navbar";
+import HeroLogin from "./components/HeroLogin";
+
 
 export default {
   name: "Login",
@@ -18,7 +20,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 * {
   margin: 0px;
 }

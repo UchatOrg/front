@@ -1,14 +1,13 @@
 <template>
   <div class="header">
-    <a></a>
-    <a href="/" class="logo"
-      ><img src="https://i.imgur.com/9Hnf2pN.png" width="70px"
-    /></a>
-    <div class="header-right">
-      <a class="active" href="/register">Register</a>
-      <a class="active" href="/login">Login</a>
+      <a></a>
+      <a href="/" class="logo"
+        ><img src="https://i.imgur.com/9Hnf2pN.png" width="70px"/></a>
+      <div class="header-right">
+        <a class="active" href="/register">Register</a>
+        <a class="active" href="/login">Login</a>
+      </div>
     </div>
-  </div>
 </template>
 
 <script>
