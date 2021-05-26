@@ -3,43 +3,75 @@
     <div class="middle-container">
       <h1>Register</h1>
       <br />
+
+
+
+
       <div class="door">
-        <div class="container">
-          <p class="p">Your username:</p>
-          <input
+
+        <form @submit.prevent="register">
+
+          <div class="container">
+            <p class="p">Your email:</p>
+            <input
+            v-model="email"
             class="input"
             type="text"
-            placeholder="username"
+            id="email"
+            placeholder="email"
+            />
+          </div>
+
+
+          <div class="container">
+            <p class="p">Your username:</p>
+            <input
+            v-model="username"
+            class="input"
+            type="text"
             id="username"
-          />
-        </div>
+            placeholder="username"
+            />
+          </div>
 
-        <div class="container">
-          <p class="p">Your password:</p>
-          <input
+          <div class="container">
+            <p class="p">Your password:</p>
+            <input
+            v-model="password"
             class="input"
             type="password"
-            placeholder="password"
             id="password"
-          />
-        </div>
+            placeholder="password"
+            />
+          </div>
 
-        <div class="container">
-          <p class="p">Repeat your password:</p>
-          <input
+          <div class="container">
+            <p class="p">Repeat your password:</p>
+            <input
+            v-model="cpassword"
             class="input"
             type="password"
-            placeholder="password"
             id="cpassword"
-          />
-        </div>
+            placeholder="repeat password"
+            />
+          </div>
 
-        <div class="container">
-          <button class="button" name="button" onclick="register();">
-            Register
-          </button>
-        </div>
+          <div class="container">
+            <button class="button" name="button" type="submit">
+              Register
+            </button>
+          </div>
+
+
+        </form>
+
+
+
       </div>
+
+
+
+
     </div>
   </div>
 </template>
@@ -47,7 +79,47 @@
 <script>
 export default {
   name: "HeroRegister",
-};
+  data() {
+    return {
+      username: "",
+      password: "",
+      cpassword: "",
+      email: "",
+    };
+  },
+  methods: {
+    register: function () {
+      const { username, password, email, cpassword } = this;
+      if ( password != cpassword) return alert("les mots de passes sont différents")
+      fetch("https://uchatorg.herokuapp.com/api/auth/register", {
+        method: "POST",
+        headers: {
+          username: username,
+          password: password,
+          email: email
+        },
+      })
+        .then(function(json) {
+            json.json().then(function(final) {
+              if (final.message == "Utilisateur enregistré") {
+                  alert("utilisateur enregistré");
+                  window.location.href = "/login";
+              } else {
+                alert("Error with your credentials")
+              }
+
+
+            });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+  },
+  /*mounted: function () {
+    this.login();
+  },*/
+  };
 </script>
 
 <style scoped>
