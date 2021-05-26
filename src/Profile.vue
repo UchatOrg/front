@@ -2,50 +2,57 @@
   <div id="app">
 
 
-    <title>Uchat</title>
-
+    <title> {{ user.username }}</title>
+    <link rel="stylesheet" href="/app/style.css" />
 
 
       <div class="header">
-        <div class="left">
-          <a class="active" href="/publish">Publish</a>
-        </div>
-        <div class="middle">
-          <img src="https://i.imgur.com/9Hnf2pN.png" width="6%" />
-        </div>
-        <div class="right">
-          <a class="active":href="'/profile?u=' + user.username"><img :src="user.avatar" style="border-radius: 50%" width="6%"> {{user.username}}</a>
-          <a class="active" href="/chat">Chat</a>
-        </div>
+        <link rel="stylesheet" href="/app/style.css" />
 
-        <!--<a href="#default" class="logo"
-          >
-        <div class="header-right">
-
-        </div>-->
+        <a class="active" href="/profile"> {{ user.username }} </a>
+        <a href="#default" class="logo">
+          <img src="https://i.imgur.com/9Hnf2pN.png" width="70px" />
+        </a>
       </div>
 
       <div class="main">
         <div class="app">
-          <div class="left"></div>
           <div class="middle">
-          <div class="container">
-            <div class="post">
-              <div class="username">
-                @saravenpi
-              </div>
-              <div class="content">
-                {{ user.username }}
-              </div>
-              <div class="description">
-                magnificient!
+            <div class="container">
+              <div class="post">
+                <div class="username">
+                  @{{ user.username }}
+                </div>
+                <div class="content">
+                  {{ user.bio }}
+                </div>
+                <div class="description">
+                  {{ user.bio }}
+                </div>
               </div>
             </div>
-            </div></div>
-          <div class="right"></div>
+          </div>
+          <div class="right">
+            <div class="container">
+              <div class="post">
+                <div class="username">
+                  @{{ username }}
+                </div>
+                <div class="content">
+                  {{ user.bio}}
+                </div>
+                <div class="description">
+                  <img
+                    src="https://img2.freepng.fr/20180218/psq/kisspng-airplane-paper-plane-ico-icon-plane-outline-5a8a0e9ccd0018.9520195815189971488397.jpg"
+                    width="70px"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-  </div>
+    </div>
 </template>
 
 
@@ -53,24 +60,30 @@
 
 <script>
 export default {
-  name: "App",
+  name: "Profile",
   data() {
     return {
       token: "",
       user: "",
+      username: ""
+
     };
   },
   created: function () {
+    var params = new URLSearchParams(window.location.search)
+    var qusername =  params.get('u')
+    this.username = qusername
     var token = localStorage.getItem("token");
     if (token == null) {
       window.location = "/login";
     } else {
       this.token = token;
       var self = this;
-      fetch("https://uchatorg.herokuapp.com/api/info/token", {
+      fetch("https://uchatorg.herokuapp.com/api/info/user", {
         method: "POST",
         headers: {
           "token": this.token,
+          "username": qusername
         },
       }).then(function (json) {
         json.json().then(function (final) {

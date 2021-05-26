@@ -2,19 +2,19 @@
   <div id="app">
 
 
-    <title>Uchat</title>
+    <title>Publish</title>
 
 
 
       <div class="header">
         <div class="left">
-          <a class="active" href="/publish">Publish</a>
+          <a class="active" href="/register">Publish</a>
         </div>
         <div class="middle">
           <img src="https://i.imgur.com/9Hnf2pN.png" width="6%" />
         </div>
         <div class="right">
-          <a class="active":href="'/profile?u=' + user.username"><img :src="user.avatar" style="border-radius: 50%" width="6%"> {{user.username}}</a>
+          <a class="active"><img :src="user.avatar" style="border-radius: 50%" width="6%"> {{user.username}}</a>
           <a class="active" href="/chat">Chat</a>
         </div>
 
@@ -53,7 +53,7 @@
 
 <script>
 export default {
-  name: "App",
+  name: "Publish",
   data() {
     return {
       token: "",

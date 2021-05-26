@@ -4,6 +4,9 @@ import Home from "./Home.vue";
 import Login from "./Login.vue";
 import Hello from "./Hello.vue";
 import Register from "./Register.vue";
+import Profile from "./Profile.vue";
+import Publish from "./Publish.vue";
+import Chat from "./Chat.vue";
 
 const NotFound = { template: "<p>Page not found</p>" };
 Vue.config.productionTip = false;
@@ -13,7 +16,10 @@ const routes = {
   "/app": App,
   "/hello": Hello,
   "/login": Login,
-  "/register": Register
+  "/register": Register,
+  "/profile": Profile,
+  "/publish": Publish,
+  "/chat": Chat
 };
 
 new Vue({
