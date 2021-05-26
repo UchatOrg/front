@@ -14,7 +14,7 @@
 
 
   <div class="container">
-    <button class="button" name="button" type="submit">Post</button>
+    <button class="button" name="button" type="submit">Publish</button>
   </div>
 </form>
 </div>
@@ -37,6 +37,8 @@ export default {
         window.location = "/login";
       } else {
         this.token = token;
+        self = this
+        if (content.length != 0) {
       fetch("https://uchatorg.herokuapp.com/api/posts/post", {
         method: "POST",
         headers: {
@@ -47,8 +49,9 @@ export default {
       })
         .then(function(json) {
             json.json().then(function(final) {
-              if (final.sucess) {
+              if (final.message == "youpi") {
                 alert("Post Published")
+                self.content = ""
               } else {
                 alert("Something weird happened")
               }
@@ -59,7 +62,8 @@ export default {
         .catch((err) => {
           console.error(err);
         });
-
+      } else {
+      alert("you can't publish an empty post!")}
       }
     },
   },
