@@ -4,11 +4,24 @@
 
     <title>Uchat</title>
 
+    <div id="myOverlay" class="overlay">
+      <span class="closebtn" v-on:click="closeSearch" title="Close Overlay">×</span>
+      <div class="overlay-content">
+        <form @submit.prevent="search">
+          <input type="text" placeholder="Search an username" name="search" v-model="searchcontent">
+        </form>
+      </div>
+    </div>
+
+
+
+
 
 
       <div class="header">
         <div class="left">
           <a class="active" href="/publish">Publish</a>
+          <a class="active" href="#search" v-on:click="openSearch">Search</a>
         </div>
         <div class="middle">
           <a href="/app">
@@ -19,12 +32,6 @@
           <a class="active":href="'/profile?u=' + user.username"><img :src="user.avatar" style="border-radius: 50%" width="6%"> {{user.username}}</a>
           <a class="active" href="/chat">Chat</a>
         </div>
-
-        <!--<a href="#default" class="logo"
-          >
-        <div class="header-right">
-
-        </div>-->
       </div>
 
       <div class="main">
@@ -52,7 +59,6 @@
 
 
 
-
 <script>
 export default {
   name: "App",
@@ -60,9 +66,11 @@ export default {
     return {
       token: "",
       user: "",
+      searchcontent: "",
     };
   },
   created: function () {
+
     var token = localStorage.getItem("token");
     if (token == null) {
       window.location = "/login";
@@ -85,6 +93,18 @@ export default {
       });
     }
   },
+  methods: {
+    openSearch: function () {
+      document.getElementById("myOverlay").style.display = "block";
+    },
+    closeSearch: function () {
+      document.getElementById("myOverlay").style.display = "none";
+    },
+    search: function () {
+        const { searchcontent } = this;
+        window.location = "/profile?u=" + searchcontent
+    }
+  }
 };
 </script>
 
@@ -186,7 +206,7 @@ export default {
 }
 
 .app .container .username {
-  text-decoration: underline;
+
   font-size: 30px;
 }
 .app .container .content {
@@ -207,7 +227,7 @@ export default {
 }
 
 .app.container .username {
-  text-decoration: underline;
+
   font-size: 30px;
 }
 .app container .contenti {
@@ -220,4 +240,81 @@ export default {
   color: grey;
 }
 
+
+* {
+  box-sizing: border-box;
+}
+
+.openBtn {
+  background: #f1f1f1;
+  border: none;
+  padding: 10px 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.openBtn:hover {
+  background: #bbb;
+}
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+}
+
+.overlay-content {
+  position: relative;
+  top: 46%;
+  width: 80%;
+  text-align: center;
+  margin-top: 30px;
+  margin: auto;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+  cursor: pointer;
+  color: white;
+}
+
+.overlay .closebtn:hover {
+  color: #ccc;
+}
+
+.overlay input[type=text] {
+  padding: 15px;
+  font-size: 17px;
+  border: none;
+  float: left;
+  width: 80%;
+  background: white;
+}
+
+.overlay input[type=text]:hover {
+  background: #f1f1f1;
+}
+
+.overlay button {
+  float: left;
+  width: 20%;
+  padding: 15px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.overlay button:hover {
+  background: #bbb;
+}
 </style>

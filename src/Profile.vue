@@ -17,14 +17,9 @@
       </div>
       <div class="right">
         <a class="active":href="'/profile?u=' + user.username"><img :src="user.avatar" style="border-radius: 50%" width="6%"> {{user.username}}</a>
-        <a class="active" href="/chat">Chat</a>
       </div>
 
-      <!--<a href="#default" class="logo"
-        >
-      <div class="header-right">
 
-      </div>-->
     </div>
 
       <div class="main">
@@ -33,31 +28,51 @@
             <div class="container">
               <div class="post">
                 <div class="username">
-                  @{{ user.username }}
+                  <img :src="user.avatar" style="border-radius: 50%" width="6%"> {{user.username}}
                 </div>
+                <br>
                 <div class="content">
-                  {{ user.bio }}
+                  followers: {{ user.followers.length }}
+                  <br>
+                  following: {{ user.following.length }}
                 </div>
-                <div class="description">
-                  {{ user.bio }}
-                </div>
+
               </div>
             </div>
+
           </div>
           <div class="right">
             <div class="container">
               <div class="post">
                 <div class="username">
-                  @{{ user.username }}
-                </div>
-                <div class="content">
-                  {{ user.bio}}
+                  {{ user.username }}
+
                 </div>
                 <div class="description">
-                  <img
-                    src="https://img2.freepng.fr/20180218/psq/kisspng-airplane-paper-plane-ico-icon-plane-outline-5a8a0e9ccd0018.9520195815189971488397.jpg"
-                    width="70px"
-                  />
+                  <br>
+                  {{ user.tags}}
+                </div>
+
+              </div>
+            </div>
+            <div class="container">
+              <div class="post">
+
+                <div class="content">
+                  <ul>
+                  <button class="button" v-on:click="follow">Follow</button>
+                  <button class="button">Chat</button>
+                </ul>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="post">
+
+                <div class="description">
+                  {{ user.bio }}
                 </div>
               </div>
             </div>
@@ -108,6 +123,27 @@ export default {
       });
     }
   },
+  methods: {
+    follow: function () {
+        var self = this;
+        fetch("https://uchatorg.herokuapp.com/api/follows/follow", {
+          method: "POST",
+          headers: {
+            "token": self.token,
+            "username": this.user.username
+          },
+        }).then(function (json) {
+          json.json().then(function (final) {
+            if (final.message == "youpi") {
+              alert("Followed Successfuly")
+            } else {
+              alert("Error with your credentials");
+            }
+          });
+        });
+
+    },
+  }
 };
 </script>
 
@@ -185,12 +221,12 @@ export default {
   width: 20%;
 }
 .app .middle {
-  background-color: #fff8dc;
+  background-color: #5487BB;
   width: 60%;
 }
 
 .app .right {
-  background-color: #FDB7D7;
+  background-color: #5487BB;
   width: 20%;
 }
 
@@ -203,13 +239,13 @@ export default {
 
 .app .container .post {
   width: 90%;
-  background-color: #F8E3EC;
+  background-color: #EFE9CE;
   border-radius: 10px;
   padding: 10%;
 }
 
 .app .container .username {
-  text-decoration: underline;
+
   font-size: 30px;
 }
 .app .container .content {
@@ -241,6 +277,19 @@ export default {
   text-decoration: italic;
   font-size: 15px;
   color: grey;
+}
+
+
+.app .container  .button {
+  color: black;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background-color: #FDB7D7;
+  margin-right: 10px;
+
+
+
 }
 
 </style>
