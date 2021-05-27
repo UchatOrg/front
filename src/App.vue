@@ -38,19 +38,29 @@
         <div class="app">
           <div class="left"></div>
           <div class="middle">
-          <div class="container">
-            <div class="post">
-              <div class="username">
-                @username here issou
-              </div>
-              <div class="content">
-                {{ user.username }}
-              </div>
-              <div class="description">
-                magnificient!
-              </div>
-            </div>
-            </div></div>
+
+
+            <li v-for="post in timeline">
+              <div class="container">
+                <div class="post">
+                  <div class="username">
+                    {{ post.username}}
+                  </div>
+                  <div class="content">
+                    {{ post.content }}
+                  </div>
+                  <div class="description">
+                    magnificient!
+                  </div>
+                </div>
+                </div>
+
+
+            </li>
+
+
+
+          </div>
           <div class="right"></div>
         </div>
       </div>
@@ -67,6 +77,7 @@ export default {
       token: "",
       user: "",
       searchcontent: "",
+      timeline: []
     };
   },
   created: function () {
@@ -94,17 +105,23 @@ export default {
 
 
       fetch("https://uchatorg.herokuapp.com/api/posts/timeline", {
-        method: "GET",
+        method: "POST",
         headers: {
-          "token": self.token,
-        },
+          "token": this.token
+        }
       }).then(function (json) {
+
         json.json().then(function (final) {
+
           if (final) {
             console.log(final.posts);
+            self.timeline = final.posts
           } else {
+
             alert("Error with your credentials");
+
           }
+
         });
       });
 
@@ -334,5 +351,9 @@ export default {
 
 .overlay button:hover {
   background: #bbb;
+}
+
+.middle li {
+  list-style: none;
 }
 </style>

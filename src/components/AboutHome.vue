@@ -17,7 +17,7 @@
          </h2>
          <br />
          <div class="grid-container">
-           <div>Yann<br><img src="https://avatars.githubusercontent.com/u/61117321" width="100px" style="border-radius:10px;"></div>
+           <div>Sara<br><img src="https://avatars.githubusercontent.com/u/61117321" width="100px" style="border-radius:10px;"></div>
            <div>Lisa<br><img src="https://i.imgur.com/45lZ6ZE.png" width="100px" height="100px" style="border-radius:10px;"></div>
            <div>Vivi<br><img src="https://i.imgur.com/pKXX6Nd.png" width="100px" height="100px" style="border-radius:10px;"></div>
          </div>
