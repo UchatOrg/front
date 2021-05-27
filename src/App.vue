@@ -25,22 +25,24 @@
         </div>
         <div class="middle">
           <a href="/app">
-          <img  src="https://i.imgur.com/9Hnf2pN.png" width="6%" />
+          <img src="https://i.imgur.com/9Hnf2pN.png" width="6%" />
         </a>
         </div>
         <div class="right">
-          <a class="active":href="'/profile?u=' + user.username"><img :src="user.avatar" style="border-radius: 50%" width="6%"> {{user.username}}</a>
+          <a class="active" :href="'/profile?u=' + user.username">
+            <img :src="user.avatar" style="border-radius: 50%" width="6%"> {{user.username}}
+          </a>
           <a class="active" href="/chat">Chat</a>
         </div>
       </div>
 
       <div class="main">
         <div class="app">
-          <div class="left"></div>
+          <div class="left"> </div>
           <div class="middle">
 
             <div class="container">
-            <li v-for="post in timeline">
+            <li v-for="post in timeline" v-bind:key="post.id">
 
                 <div class="post">
                   <div class="username">
