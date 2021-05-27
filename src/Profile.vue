@@ -60,7 +60,7 @@
 
                 <div class="content">
                   <ul>
-                  <button class="button" v-on:click="follow">Follow</button>
+                  <button class="button" v-on:click="follow"> {{ followtext }}</button>
                   <button class="button">Chat</button>
                 </ul>
                 </div>
@@ -92,7 +92,8 @@ export default {
     return {
       token: "",
       user: "",
-
+      following: false;
+      followtext: "Follow";
     };
   },
   created: function () {
@@ -116,6 +117,10 @@ export default {
           if (final) {
             self.user = final.user;
             console.log(self.user);
+            self.following = final.followingstatus
+            if (self.followingstatus == true) {
+            self.followtext = 'Unfollow'
+          }
           } else {
             alert("Error with your credentials");
           }
@@ -136,6 +141,8 @@ export default {
           json.json().then(function (final) {
             if (final.message == "youpi") {
               alert("Followed Successfuly")
+              self.following = true
+              self.followtext = 'Unfollow'
             } else {
               alert("Error with your credentials");
             }
