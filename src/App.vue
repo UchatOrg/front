@@ -221,6 +221,8 @@ export default {
 .app .middle {
   background-color: #fff8dc;
   width: 60%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .app .right {
