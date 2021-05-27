@@ -2,7 +2,6 @@ import Vue from "vue";
 import App from "./App.vue";
 import Home from "./Home.vue";
 import Login from "./Login.vue";
-import Hello from "./Hello.vue";
 import Register from "./Register.vue";
 import Profile from "./Profile.vue";
 import Publish from "./Publish.vue";
@@ -14,7 +13,6 @@ Vue.config.productionTip = false;
 const routes = {
   "/": Home,
   "/app": App,
-  "/hello": Hello,
   "/login": Login,
   "/register": Register,
   "/profile": Profile,

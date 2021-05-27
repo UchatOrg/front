@@ -1,16 +1,36 @@
 <template>
   <div class="header">
-    <a href="/"
-      ><img src="https://i.imgur.com/QPRyafY.png" width="50px" class="logo"
-    /></a>
-    <a href="#home" class="active">Register</a>
-    <a href="#home" class="active">Login</a>
+    <div class="left">
+      <a class="active" href="/publish">Publish</a>
+      <a class="active" href="#search" v-on:click="openSearch">Search</a>
+    </div>
+    <div class="middle">
+      <a href="/app">
+      <img src="https://i.imgur.com/9Hnf2pN.png" width="6%" />
+    </a>
+    </div>
+    <div class="right">
+      <a class="active" :href="'/profile?u=' + username">
+        <img :src="avatar" style="border-radius: 50%" width="6%"> {{ username }}
+      </a>
+      <a class="active" href="/chat">Chat</a>
+    </div>
+
+
+
+
   </div>
+
+
+
+
+
 </template>
 
 <script>
 export default {
   name: "NavbarApp",
+  props: ['username', 'avatar']
 };
 </script>
 
@@ -20,54 +40,55 @@ export default {
   font-family: Rubik;
 }
 .header {
-  overflow: hidden;
   background-color: #FDB7D7;
-  padding: 20px 10px;
+  position: fixed;
   height: 10%;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  padding: 0px;
 }
 
-.header a {
-  float: left;
-  color: black;
+.header .left {
+  padding: 2%;
+  width: 20%;
   text-align: center;
-  padding: 17px;
+}
+
+.header .left a {
+  background-color: #efe9ce;
+  padding: 4%;
+  color: grey;
   text-decoration: none;
-  font-size: 25px;
-  line-height: 25px;
   border-radius: 10px;
 }
 
-.header a.logo {
-  font-size: 25px;
-  font-weight: bold;
-  padding: 17px;
+.header .middle {
+  width: 60%;
+
+  text-align: center;
+}
+
+.header .middle img {
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+.header .right {
+  padding: 2%;
+  width: 20%;
+  background-color: #fff8dc;
+  text-align: center;
+}
+
+.header .right a {
+  background-color: #FDB7D7;
+  padding: 4%;
   color: white;
+  text-decoration: none;
+  border-radius: 10px;
 }
 
-.header a.active:hover {
-  background-color: #ddd;
-  color: black;
-  cursor: pointer;
-}
 
-.header a.active {
-  background-color: #F8E3EC;
-  color: black;
-  margin-left: 10px;
-  float: right;
-}
 
-.header a.activered {
-  background-color: #d31349;
-  color: white;
-  margin-left: 10px;
-}
-
-.header a.activered:hover {
-  cursor: pointer;
-  background-color: #555;
-}
-.header-right {
-  float: right;
-}
 </style>

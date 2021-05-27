@@ -13,53 +13,41 @@
       </div>
     </div>
 
-
-
-
-
-
-      <div class="header">
-        <div class="left">
-          <a class="active" href="/publish">Publish</a>
-          <a class="active" href="#search" v-on:click="openSearch">Search</a>
-        </div>
-        <div class="middle">
-          <a href="/app">
-          <img src="https://i.imgur.com/9Hnf2pN.png" width="6%" />
-        </a>
-        </div>
-        <div class="right">
-          <a class="active" :href="'/profile?u=' + user.username">
-            <img :src="user.avatar" style="border-radius: 50%" width="6%"> {{user.username}}
-          </a>
-          <a class="active" href="/chat">Chat</a>
-        </div>
+    <div class="header">
+      <div class="left">
+        <a class="active" href="/publish">Publish</a>
+        <a class="active" href="#" v-on:click="openSearch">Search</a>
       </div>
+      <div class="middle">
+        <a href="/app">
+        <img src="https://i.imgur.com/9Hnf2pN.png" width="6%" />
+      </a>
+      </div>
+      <div class="right">
+        <a class="active" :href="'/profile?u=' + user.username">
+          <img :src="user.avatar" style="border-radius: 50%" width="6%"> {{ user.username }}
+        </a>
+        <a class="active" href="/chat">Chat</a>
+      </div>
+
+
+
+
+    </div>
+
+
+
+
 
       <div class="main">
         <div class="app">
           <div class="left"> </div>
           <div class="middle">
 
-            <div class="container">
-            <li v-for="post in timeline" v-bind:key="post.id">
-
-                <div class="post">
-                  <div class="username">
-                    {{ post.username}}
-                  </div>
-                  <div class="content">
-                    {{ post.content }}
-                  </div>
-                  <div class="description">
-                    magnificient!
-                  </div>
-                </div>
-                <br>
 
 
-            </li>
-            </div>
+              <TimelineApp />
+
 
 
           </div>
@@ -72,8 +60,14 @@
 
 
 <script>
+
+import TimelineApp from "./components/TimelineApp";
+
 export default {
   name: "App",
+  components: {
+    TimelineApp
+  },
   data() {
     return {
       token: "",
@@ -99,34 +93,12 @@ export default {
         json.json().then(function (final) {
           if (final) {
             self.user = final.user;
+            localStorage.setItem("username", final.user.username);
           } else {
             alert("Error with your credentials");
           }
         });
       });
-
-
-      fetch("https://uchatorg.herokuapp.com/api/posts/timeline", {
-        method: "POST",
-        headers: {
-          "token": this.token
-        }
-      }).then(function (json) {
-
-        json.json().then(function (final) {
-
-          if (final) {
-            console.log(final.posts);
-            self.timeline = final.posts
-          } else {
-
-            alert("Error with your credentials");
-
-          }
-
-        });
-      });
-
 
     }
   },
@@ -153,6 +125,7 @@ export default {
   font-family: "Rubik";
   margin: 0;
 }
+
 
 .header {
   background-color: #FDB7D7;
@@ -204,6 +177,9 @@ export default {
   border-radius: 10px;
 }
 
+
+
+
 .main .app {
   position: fixed;
   bottom: 0;
@@ -232,51 +208,6 @@ export default {
 
 .app {
   background-color: #5487BB;
-}
-.app .container {
-  padding: 10%;
-}
-
-.app .container .post {
-  width: 90%;
-  background-color: #F8E3EC;
-  border-radius: 10px;
-  padding: 10%;
-}
-
-.app .container .username {
-
-  font-size: 30px;
-}
-.app .container .content {
-  text-decoration: none;
-  font-size: 20px;
-}
-.app .container .description {
-  text-decoration: italic;
-  font-size: 15px;
-  color: grey;
-}
-
-.app .container .posti {
-  width: 90%;
-  background-color: #F8E3EC;
-  border-radius: 10px;
-  padding: 20%;
-}
-
-.app.container .username {
-
-  font-size: 30px;
-}
-.app container .contenti {
-  text-decoration: none;
-  font-size: 20px;
-}
-.app .container .description {
-  text-decoration: italic;
-  font-size: 15px;
-  color: grey;
 }
 
 
@@ -357,7 +288,5 @@ export default {
   background: #bbb;
 }
 
-.middle li {
-  list-style: none;
-}
+
 </style>
