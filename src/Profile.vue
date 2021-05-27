@@ -16,7 +16,7 @@
       </a>
       </div>
       <div class="right">
-        <a class="active":href="'/profile?u=' + user.username"><img :src="user.avatar" style="border-radius: 50%" width="6%"> {{user.username}}</a>
+        <a class="active" :href="'/profile?u=' + user.username"><img :src="user.avatar" style="border-radius: 50%" width="6%"> {{user.username}}</a>
       </div>
 
 

@@ -37,7 +37,7 @@ export default {
         window.location = "/login";
       } else {
         this.token = token;
-        self = this
+        var self = this
         if (content.length != 0) {
       fetch("https://uchatorg.herokuapp.com/api/posts/post", {
         method: "POST",
