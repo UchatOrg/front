@@ -39,9 +39,9 @@
           <div class="left"></div>
           <div class="middle">
 
-
+            <div class="container">
             <li v-for="post in timeline">
-              <div class="container">
+
                 <div class="post">
                   <div class="username">
                     {{ post.username}}
@@ -53,11 +53,11 @@
                     magnificient!
                   </div>
                 </div>
-                </div>
+                <br>
 
 
             </li>
-
+            </div>
 
 
           </div>
