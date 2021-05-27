@@ -91,6 +91,24 @@ export default {
           }
         });
       });
+
+
+      fetch("https://uchatorg.herokuapp.com/api/posts/timeline", {
+        method: "GET",
+        headers: {
+          "token": self.token,
+        },
+      }).then(function (json) {
+        json.json().then(function (final) {
+          if (final) {
+            console.log(final.posts);
+          } else {
+            alert("Error with your credentials");
+          }
+        });
+      });
+
+
     }
   },
   methods: {

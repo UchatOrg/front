@@ -118,7 +118,7 @@ export default {
             self.user = final.user;
             console.log(self.user);
             self.following = final.followingstatus
-            if (self.followingstatus == true) {
+            if (self.following == true) {
             self.followtext = 'Unfollow'
           }
           } else {
@@ -130,24 +130,52 @@ export default {
   },
   methods: {
     follow: function () {
+
         var self = this;
-        fetch("https://uchatorg.herokuapp.com/api/follows/follow", {
-          method: "POST",
-          headers: {
-            "token": self.token,
-            "username": this.user.username
-          },
-        }).then(function (json) {
-          json.json().then(function (final) {
-            if (final.message == "youpi") {
-              alert("Followed Successfuly")
-              self.following = true
-              self.followtext = 'Unfollow'
-            } else {
-              alert("Error with your credentials");
-            }
+        if (self.following == false) {
+          fetch("https://uchatorg.herokuapp.com/api/follows/follow", {
+            method: "POST",
+            headers: {
+              "token": self.token,
+              "username": self.user.username
+            },
+          }).then(function (json) {
+            json.json().then(function (final) {
+              if (final.message == "youpi") {
+                alert("Followed Successfuly")
+                self.following = true
+                self.followtext = 'Unfollow'
+              } else {
+                if (final.message == "already") {
+                  alert('You are already following this user')
+                } else {
+
+                alert("Error with your credentials");
+               }
+
+              }
+            });
           });
-        });
+        } else {
+          fetch("https://uchatorg.herokuapp.com/api/follows/unfollow", {
+            method: "POST",
+            headers: {
+              "token": self.token,
+              "username": self.user.username
+            },
+          }).then(function (json) {
+            json.json().then(function (final) {
+              if (final.message == "youpi") {
+                alert("Unfollowed Successfuly")
+                self.following = false
+                self.followtext = 'Follow'
+              } else {
+                alert("Error with your credentials");
+              }
+            });
+          });
+        }
+
 
     },
   }
