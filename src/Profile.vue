@@ -92,8 +92,8 @@ export default {
     return {
       token: "",
       user: "",
-      following: false;
-      followtext: "Follow";
+      following: false,
+      followtext: "Follow"
     };
   },
   created: function () {
