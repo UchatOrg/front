@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-  <li v-for="post in timeline.reverse()" v-bind:key="post.id">
+  <li v-for="post in timeline.reverse()" v-bind:key="post._id">
 
       <div class="post">
         <div class="username">
