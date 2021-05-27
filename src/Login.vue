@@ -17,6 +17,16 @@ export default {
     HeroLogin,
     Navbar,
   },
+
+  created: function () {
+
+    var token = localStorage.getItem("token");
+    if (token == null) {
+      console.log("not logged");
+    } else {
+      window.location.href='/app';
+    }
+  }
 };
 </script>
 

@@ -18,7 +18,7 @@ export default {
     HeroHome,
     Navbar,
     AboutHome,
-  },
+  }
 };
 </script>
 

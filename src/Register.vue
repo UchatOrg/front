@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navbar />
-  
+
     <HeroRegister />
   </div>
 </template>
@@ -14,8 +14,18 @@ export default {
   name: "Register",
   components: {
     HeroRegister,
-    Navbar,
+    Navbar
   },
+
+  created: function () {
+
+    var token = localStorage.getItem("token");
+    if (token == null) {
+      console.log("not logged");
+    } else {
+      window.location.href='/app';
+    }
+  }
 };
 </script>
 
