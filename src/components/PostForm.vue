@@ -50,8 +50,8 @@ export default {
         .then(function(json) {
             json.json().then(function(final) {
               if (final.message == "youpi") {
-                alert("Post Published")
                 self.content = ""
+                alert("Post Published")
               } else {
                 alert("Something weird happened")
               }

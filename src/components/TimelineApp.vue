@@ -9,8 +9,8 @@
         <div class="content">
           {{ post.content }}
         </div>
-        <div class="description">
-          likes: {{ post.likes }}
+        <div class="description" v-on:click="like(post._id)">
+          🤎{{ post.likes.length }}
         </div>
       </div>
       <br>
@@ -57,6 +57,29 @@ export default {
       });
 
 
+    }
+  },
+  methods: {
+    like: function (postid) {
+      var self = this;
+      fetch("https://uchatorg.herokuapp.com/api/posts/like", {
+        method: "POST",
+        headers: {
+          "token": this.token
+        }
+      }).then(function (json) {
+
+        json.json().then(function (final) {
+
+          if (final.message == "youpi") {
+            window.location.reload();
+          } else {
+
+            alert("Error with your credentials");
+
+          }
+
+        });
     }
   }
 };

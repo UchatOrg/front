@@ -41,7 +41,11 @@
 
       <div class="main">
         <div class="app">
-          <div class="left"> </div>
+          <div class="left">
+            <div class="container">
+            <a class="button" href="#" v-on:click="logout">Logout</a>
+          </div>
+          </div>
           <div class="middle">
 
 
@@ -112,7 +116,11 @@ export default {
     search: function () {
         const { searchcontent } = this;
         window.location = "/profile?u=" + searchcontent
-    }
+    },
+    logout: function () {
+      localStorage.clear();
+      window.location = "/login"
+    },
   }
 };
 </script>
@@ -194,6 +202,23 @@ export default {
   background-color: #5487BB;
   width: 20%;
 }
+
+.app .left .button{
+  background-color: #c14b86;
+  padding: 4%;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+}
+.app .left .container{
+
+  padding-left: 4%;
+  padding-top: 10%;
+
+
+}
+
+
 .app .middle {
   background-color: #fff8dc;
   width: 60%;
