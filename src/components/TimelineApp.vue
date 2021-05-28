@@ -65,7 +65,8 @@ export default {
       fetch("https://uchatorg.herokuapp.com/api/posts/like", {
         method: "POST",
         headers: {
-          "token": this.token
+          "token": self.token,
+          "postid": postid
         }
       }).then(function (json) {
 
@@ -78,7 +79,7 @@ export default {
             alert("Error with your credentials");
 
           }
-
+          });
         });
     }
   }
