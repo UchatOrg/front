@@ -59,7 +59,9 @@ export default {
             json.json().then(function(final) {
               if (final.authorization) {
                   var token = final.authorization
+                  var userid = final._id
                   localStorage.setItem('token', token);
+                  localStorage.setItem('_id', userid);
                   window.location = "/app"
 
               } else {

@@ -3,6 +3,7 @@
   <li v-for="post in timeline.reverse()" v-bind:key="post._id">
 
       <div class="post">
+
         <div class="username">
           {{ post.username}}
         </div>
@@ -11,6 +12,10 @@
         </div>
         <div class="description" v-on:click="like(post._id)">
           🤎{{ post.likes.length }}
+        </div>
+
+        <div v-if="post.author == userid" class="description" v-on:click="deletepost(post._id)">
+        🗑️
         </div>
       </div>
       <br>
@@ -24,6 +29,7 @@ export default {
   data() {
     return {
       token: "",
+      userid: "",
       timeline: []
     };
   },
@@ -33,7 +39,9 @@ export default {
     if (token == null) {
       window.location = "/login";
     } else {
+
       this.token = token;
+      this.userid = localStorage.getItem("_id");
       var self = this;
       fetch("https://uchatorg.herokuapp.com/api/posts/timeline", {
         method: "POST",
@@ -81,6 +89,34 @@ export default {
           }
           });
         });
+    },
+    deletepost: function (postid) {
+      var confirmation = confirm("Are you the boss?");
+      if (confirmation) {
+        var self = this;
+        fetch("https://uchatorg.herokuapp.com/api/posts/delete", {
+          method: "POST",
+          headers: {
+            "token": self.token,
+            "postid": postid
+          }
+        }).then(function (json) {
+
+          json.json().then(function (final) {
+
+            if (final.message == "youpi") {
+              window.location.reload();
+            } else {
+
+              alert("Error with your credentials");
+
+            }
+            });
+          });
+      } else {
+        console.log("delete operation aborted");
+      }
+
     }
   }
 };
