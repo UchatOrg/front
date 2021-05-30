@@ -14,8 +14,8 @@
           🤎{{ post.likes.length }}
         </div>
 
-        <div v-if="post.author == userid" class="description" v-on:click="deletepost(post._id)">
-        🗑️
+        <div v-if="post.author == userid" class="description-d" v-on:click="deletepost(post._id)">
+        🗑️ delete
         </div>
       </div>
       <br>
@@ -91,7 +91,7 @@ export default {
         });
     },
     deletepost: function (postid) {
-      var confirmation = confirm("Are you the boss?");
+      var confirmation = confirm("Are you sure to delete this post?");
       if (confirmation) {
         var self = this;
         fetch("https://uchatorg.herokuapp.com/api/posts/delete", {
@@ -169,6 +169,17 @@ export default {
   color: grey;
 }
 
+.app .container .description-d {
+  text-decoration: italic;
+  font-size: 15px;
+  color: grey;
+}
+
+
+.app .container .description-d:hover {
+  text-decoration: underline;
+
+}
 li {
   list-style: none;
 }
