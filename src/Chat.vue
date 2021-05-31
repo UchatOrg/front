@@ -8,14 +8,18 @@
 
       <div class="header">
         <div class="left">
-          <a class="active" href="/register">Publish</a>
+          <a class="active" href="/register">Back</a>
         </div>
         <div class="middle">
-          <img src="https://i.imgur.com/9Hnf2pN.png" width="6%" />
+
+            <img :src="user.avatar" style="border-radius: 50%" width="6%">
+              <a class="group" href="/chat">Oral de Nsi</a>
+
+          <!-- <a class="active" href="/chat">Chat</a>-->
         </div>
         <div class="right">
-          <a class="active" href="/profile"><img :src="user.avatar" style="border-radius: 50%" width="6%"> {{user.username}}</a>
-          <a class="active" href="/chat">Chat</a>
+          <img src="https://i.imgur.com/9Hnf2pN.png" width="6%" />
+
         </div>
 
         <!--<a href="#default" class="logo"
@@ -27,21 +31,38 @@
 
       <div class="main">
         <div class="app">
-          <div class="left"></div>
-          <div class="middle">
-          <div class="container">
-            <div class="post">
+          <div class="left">
+
               <div class="username">
-                @saravenpi
+                <img :src="user.avatar" width="15%"> {{ user.username }}
               </div>
-              <div class="content">
-                {{ user.username }}
-              </div>
-              <div class="description">
-                magnificient!
-              </div>
+              <br>
+              <div class="convs">
+
+                <div class="conv">
+                  <img :src="user.avatar" width="10%"> Emilie
+                </div>
+
+                <div class="conv">
+                  <img :src="user.avatar" width="10%"> Soirée Samedi
+                </div>
+
+                <div class="active conv">
+                  <img :src="user.avatar" width="10%"> Oral de Nsi
+                </div>
             </div>
-            </div></div>
+            <br>
+            <div class="button-add">
+              +
+            </div>
+
+            <div class="settings">
+              Settings
+            </div>
+            </div>
+          <div class="middle">
+
+          </div>
           <div class="right"></div>
         </div>
       </div>
@@ -121,29 +142,54 @@ export default {
 }
 
 .header .middle {
+  vertical-align: middle;
   width: 60%;
-
-  text-align: center;
+  background-color: #5487BB;
+  text-align: left;
+  padding: 1%;
 }
 
+.header .inline {
+  display: inline-block;
+  color: white;
+}
 .header .middle img {
-  padding-top: 1%;
+  vertical-align: middle;
   padding-bottom: 1%;
-}
-.header .right {
-  padding: 2%;
-  width: 20%;
-  background-color: #fff8dc;
-  text-align: center;
+  margin-right:15px;
 }
 
-.header .right a {
+.header .middle .active{
   background-color: #FDB7D7;
-  padding: 4%;
+  padding: 1%;
   color: white;
   text-decoration: none;
   border-radius: 10px;
+  margin-right:15px;
 }
+.header .middle .group {
+
+  padding: 1%;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  margin-right:15px;
+  font-size: 40px;
+}
+
+
+.header .right img {
+
+  width: 20%;
+}
+.header .right {
+  padding: 1%;
+  width: 20%;
+  background-color: #FDB7D7;
+  text-align: center;
+}
+
+
 
 .main .app {
   position: fixed;
@@ -158,14 +204,15 @@ export default {
 .app .left {
   background-color: #5487BB;
   width: 20%;
+  overflow-y: auto;
 }
 .app .middle {
-  background-color: #fff8dc;
+  background-color: #F8E3EC;
   width: 60%;
 }
 
 .app .right {
-  background-color: #FDB7D7;
+  background-color: #5487BB;
   width: 20%;
 }
 
@@ -218,4 +265,55 @@ export default {
   color: grey;
 }
 
+.app .left .username {
+
+  width: 100%;
+  background-color: #EFE9CE;
+  padding: 10%;
+  font-size: 30px;
+}
+
+.app .left .username img {
+  border-radius: 50%;
+  display: inline;
+}
+
+
+
+.app .left .conv {
+  width: 100%;
+  background-color: #EFE9CE;
+  padding: 10%;
+  font-size: 15px;
+}
+
+.app .left .conv img {
+  border-radius: 50%;
+  display: inline;
+}
+
+.app .left .active  {
+  background-color: #F8E3EC;
+}
+
+.app .left .button-add {
+  text-align: center;
+  padding: 7%;
+  margin: 10%;
+  background-color: #EFE9CE;
+  border-radius: 10px;
+  font-size: 30px;
+
+}
+
+.app .left .settings {
+  width: 100%;
+  background-color: #EFE9CE;
+  padding: 10%;
+  font-size: 15px;
+  bottom: 0;
+  margin-bottom: 0px;
+  margin-top: 25%
+
+}
 </style>
