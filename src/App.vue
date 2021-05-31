@@ -13,6 +13,38 @@
       </div>
     </div>
 
+
+    <div id="usermodal" class="overlay">
+      <span class="closebtn" v-on:click="closeusermodal" title="Close Overlay">×</span>
+      <div class="overlay-content">
+        <form @submit.prevent="updateuser">
+          <div class="door">
+
+          <div class="container">
+            <p class="p">Your bio:</p>
+            <input
+            v-model="bio"
+            class="input"
+            type="text"
+            id="bio"
+            placeholder="bio"
+            />
+          </div>
+          <div class="container">
+            <p class="p">Your tags:</p>
+            <input
+            v-model="tags"
+            class="input"
+            type="text"
+            id="tags"
+            placeholder="tags"
+            />
+          </div>
+        </div>
+          </form>
+      </div>
+    </div>
+
     <div class="header">
       <div class="left">
         <a class="active" href="/publish">Publish</a>
@@ -43,7 +75,8 @@
         <div class="app">
           <div class="left">
             <div class="container">
-            <a class="button" href="#" v-on:click="logout">Logout</a>
+            <a class="button-red" href="#" v-on:click="logout">Logout</a>
+            <a class="button" href="#" v-on:click="openusermodal">Settings</a>
           </div>
           </div>
           <div class="middle">
@@ -112,6 +145,12 @@ export default {
     },
     closeSearch: function () {
       document.getElementById("myOverlay").style.display = "none";
+    },
+    openusermodal: function () {
+      document.getElementById("usermodal").style.display = "block";
+    },
+    closeusermodal: function () {
+      document.getElementById("usermodal").style.display = "none";
     },
     search: function () {
         const { searchcontent } = this;
@@ -204,6 +243,14 @@ export default {
 }
 
 .app .left .button{
+  background-color: #efe9ce;
+  padding: 4%;
+  color: black;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+.app .left .button-red{
   background-color: #c14b86;
   padding: 4%;
   color: white;
@@ -286,18 +333,6 @@ export default {
   color: #ccc;
 }
 
-.overlay input[type=text] {
-  padding: 15px;
-  font-size: 17px;
-  border: none;
-  float: left;
-  width: 80%;
-  background: white;
-}
-
-.overlay input[type=text]:hover {
-  background: #f1f1f1;
-}
 
 .overlay button {
   float: left;
@@ -313,5 +348,46 @@ export default {
   background: #bbb;
 }
 
+.door {
+  color: #fff8dc;
+  text-align: left;
+  border-radius: 10px;
+  background-color: #FDB7D7;
+  padding: 15px;
+  width: auto;
+  border: 6px solid #F8E3EC;
+}
+.door .input {
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background-color: #5487BB;
+}
 
+::placeholder {
+  color: white;
+}
+
+.door .button {
+  color: black;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background-color: #F8E3EC;
+}
+.door .textarea {
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background-color: #5487BB;
+}
+.door .p {
+  padding-bottom: 12px;
+}
+
+.door .container {
+  padding: 15px;
+}
 </style>
