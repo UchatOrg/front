@@ -61,9 +61,33 @@
             </div>
             </div>
           <div class="middle">
+            <div class="chat">
+            </div>
+            <div class="form">
+              <button class="button"><img src="https://i.imgur.com/3lrMwcn.png"></button>
+              <input class="input">
+
+            </div>
+          </div>
+          <div class="right">
+            <div class="title">
+              Dans ce groupe:
+            </div>
+
+
+            <div class="active user">
+              <img :src="user.avatar" width="10%"> Sara
+            </div>
+            <br>
+            <div class="user">
+              <img :src="user.avatar" width="10%"> Lisa
+            </div>
+            <br>
+            <div class="user">
+              <img :src="user.avatar" width="10%"> Vivi
+            </div>
 
           </div>
-          <div class="right"></div>
         </div>
       </div>
   </div>
@@ -315,5 +339,64 @@ export default {
   margin-bottom: 0px;
   margin-top: 25%
 
+}
+
+
+
+.middle .form{
+  background-color: #FDB7D7;
+  position: fixed;
+  height: 10%;
+  bottom: 0;
+  left: 20%;
+  right: 20%;
+  display: flex;
+  padding: 10px;
+}
+
+.middle .form .button{
+  width: 10%;
+  background-color: #5487BB;
+  border: none;
+  border-radius: 50px 0px 0px 50px;
+}
+
+
+.middle .form .button img {
+  height: 75%;
+  transform: scaleX(-1);
+}
+
+.middle .form .input{
+  width: 90%;
+  background-color: #5487BB;
+  border: none;
+  border-radius: 0px 50px 50px 0px;
+}
+
+
+
+.app .right .title {
+
+  width: 100%;
+  /*background-color: #EFE9CE;*/
+  padding: 10%;
+  font-size: 30px;
+  color: white;
+}
+
+
+
+
+.app .right .user {
+  width: 100%;
+  background-color: #EFE9CE;
+  padding: 10%;
+  font-size: 15px;
+}
+
+.app .right .user img {
+  border-radius: 50%;
+  display: inline;
 }
 </style>

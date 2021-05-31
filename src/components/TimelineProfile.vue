@@ -33,7 +33,7 @@ export default {
       token: "",
       userid: "",
       timeline: [],
-      quserid: this.quserid
+      qauserid: this.quserid
     };
   },
   created: function () {
@@ -49,7 +49,7 @@ export default {
         method: "POST",
         headers: {
           "token": this.token,
-          "userid": this.quserid
+          "userid": this.qauserid
         }
       }).then(function (json) {
 
