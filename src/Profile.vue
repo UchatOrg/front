@@ -40,10 +40,11 @@
                 </div>
 
               </div>
-            </div>
 
-            <TimelineProfile :quserid="user._id" />
-
+                <br>
+                  <h1>{{ user.username }}'s Posts </h1>
+                  <TimelineProfile :quserid="user._id" />
+                </div>
           </div>
           <div class="right">
             <div class="container">
@@ -336,6 +337,13 @@ export default {
 
 
 
+}
+
+
+.app .middle {
+
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 </style>

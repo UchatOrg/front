@@ -4,7 +4,7 @@
 
     <title>Uchat</title>
 
-    <div id="myOverlay" class="overlay">
+    <div id="myOverlay" class=" overlay overlay-search">
       <span class="closebtn" v-on:click="closeSearch" title="Close Overlay">×</span>
       <div class="overlay-content">
         <form @submit.prevent="search">
@@ -347,6 +347,25 @@ export default {
 .overlay button:hover {
   background: #bbb;
 }
+
+.overlay-search input[type=text] {
+  padding: 15px;
+  font-size: 17px;
+  border: none;
+  float: left;
+  width: 80%;
+  background: white;
+  color: black;
+}
+
+.overlay-search input[type=text]:hover {
+  background: #f1f1f1;
+}
+.overlay-search ::placeholder {
+  color: grey;
+}
+
+
 
 .door {
   color: #fff8dc;

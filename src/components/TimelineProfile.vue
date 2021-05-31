@@ -1,9 +1,8 @@
 <template>
-  <div class="container">
+  <div>
   <li v-for="post in timeline.reverse()" v-bind:key="post._id">
 
       <div class="post">
-
         <div class="username">
           {{ post.username}}
         </div>
