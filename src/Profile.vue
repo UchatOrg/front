@@ -42,6 +42,8 @@
               </div>
             </div>
 
+            <TimelineProfile :quserid="user._id" />
+
           </div>
           <div class="right">
             <div class="container">
@@ -88,8 +90,14 @@
 
 
 <script>
+
+import TimelineProfile from "./components/TimelineProfile";
+
 export default {
   name: "Profile",
+  components: {
+    TimelineProfile
+  },
   data() {
     return {
       token: "",
