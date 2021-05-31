@@ -20,6 +20,8 @@
       </div>
       <br>
   </li>
+
+
 </div>
 </template>
 
@@ -54,7 +56,10 @@ export default {
 
           if (final) {
             console.log(final.posts);
-            self.timeline = final.posts
+            for (var i = 0; i < final.posts.length; i++) {
+              self.timeline.push(final.posts[i])
+            }
+
           } else {
 
             alert("Error with your credentials");

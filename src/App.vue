@@ -20,7 +20,7 @@
         <form @submit.prevent="updateuser">
           <div class="door">
 
-          <div class="container">
+          <!-- <div class="container">
             <p class="p">Your bio:</p>
             <input
             v-model="bio"
@@ -39,7 +39,7 @@
             id="tags"
             placeholder="tags"
             />
-          </div>
+          </div>-->
         </div>
           </form>
       </div>
@@ -109,8 +109,7 @@ export default {
     return {
       token: "",
       user: "",
-      searchcontent: "",
-      timeline: []
+      searchcontent: ""
     };
   },
   created: function () {
