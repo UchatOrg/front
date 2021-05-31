@@ -39,10 +39,10 @@ export default {
     if (token == null) {
       window.location = "/login";
     } else {
-
       this.token = token;
       this.userid = localStorage.getItem("_id");
       var self = this;
+
       fetch("https://uchatorg.herokuapp.com/api/posts/timeline", {
         method: "POST",
         headers: {
