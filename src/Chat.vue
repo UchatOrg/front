@@ -307,7 +307,7 @@ export default {
 .app .left .conv {
   width: 100%;
   background-color: #EFE9CE;
-  padding: 10%;
+  padding: 5%;
   font-size: 15px;
 }
 
@@ -332,18 +332,19 @@ export default {
 
 .app .left .settings {
   width: 100%;
+  text-align: center;
   background-color: #EFE9CE;
   padding: 10%;
+  position: relative;
   font-size: 15px;
   bottom: 0;
-  margin-bottom: 0px;
-  margin-top: 25%
+  left: 0;
 
 }
 
 
 
-.middle .form{
+.middle .form {
   background-color: #FDB7D7;
   position: fixed;
   height: 10%;
