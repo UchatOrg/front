@@ -66,7 +66,7 @@
                 <div class="content">
                   <ul>
                   <button class="button" v-on:click="follow"> {{ followtext }}</button>
-                  <button class="button">Chat</button>
+                  <button class="button" v-on:click="openchannel">Chat</button>
                 </ul>
                 </div>
 
@@ -126,7 +126,7 @@ export default {
         },
       }).then(function (json) {
         json.json().then(function (final) {
-          if (final) {
+          if (final.user) {
             self.user = final.user;
             console.log(self.user);
             self.following = final.followingstatus
@@ -134,7 +134,10 @@ export default {
             self.followtext = 'Unfollow'
           }
           } else {
-            alert("Error with your credentials");
+            alert("User not found");
+            window.location="/app"
+
+          self.user = user
           }
         });
       });
@@ -187,6 +190,30 @@ export default {
             });
           });
         }
+
+
+    },
+
+    openchannel: function () {
+
+        var self = this;
+
+          fetch("https://uchatorg.herokuapp.com/api/channels/join", {
+            method: "POST",
+            headers: {
+              "token": self.token,
+              "userid": self.user._id
+            },
+          }).then(function (json) {
+            json.json().then(function (final) {
+              if (final.message == "youpi") {
+                window.location = "/chat"
+              } else {
+                alert("Error with your credentials");
+                }
+            });
+          });
+
 
 
     },

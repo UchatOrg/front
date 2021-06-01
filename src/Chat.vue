@@ -16,6 +16,7 @@
               <a class="group" href="/chat">Oral de Nsi</a>
 
           <!-- <a class="active" href="/chat">Chat</a>-->
+
         </div>
         <div class="right">
           <img src="https://i.imgur.com/9Hnf2pN.png" width="6%" />
@@ -37,19 +38,16 @@
                 <img :src="user.avatar" width="15%"> {{ user.username }}
               </div>
               <br>
-              <div class="convs">
+              <div class="convs" v-for="channel in channels.reverse()" v-bind:key="channel._id">
+                  <div class="post">
+                      <div class="conv">
+                        <img :src="user.avatar" width="10%"> {{ channel.name}}
+                      </div>
+                    </div>
+                    <br>
 
-                <div class="conv">
-                  <img :src="user.avatar" width="10%"> Emilie
-                </div>
 
-                <div class="conv">
-                  <img :src="user.avatar" width="10%"> Soirée Samedi
-                </div>
 
-                <div class="active conv">
-                  <img :src="user.avatar" width="10%"> Oral de Nsi
-                </div>
             </div>
             <br>
             <div class="button-add">
@@ -61,11 +59,13 @@
             </div>
             </div>
           <div class="middle">
+            <div id="chat-messages" class="card-content" v-html="chatContent">
+            </div>
             <div class="chat">
             </div>
             <div class="form">
-              <button class="button"><img src="https://i.imgur.com/3lrMwcn.png"></button>
-              <input class="input">
+              <button class="button" @click="send"><img src="https://i.imgur.com/3lrMwcn.png"></button>
+              <input class="input" v-model="newMsg" @keyup.enter="send">
 
             </div>
           </div>
@@ -103,15 +103,21 @@ export default {
     return {
       token: "",
       user: "",
+      channels: [],
+      newMsg: '',
+      chatContent: '',
+      currentRoom: ''
     };
   },
   created: function () {
+
+
+    var self = this;
     var token = localStorage.getItem("token");
     if (token == null) {
       window.location = "/login";
     } else {
       this.token = token;
-      var self = this;
       fetch("https://uchatorg.herokuapp.com/api/info/token", {
         method: "POST",
         headers: {
@@ -126,8 +132,104 @@ export default {
           }
         });
       });
+
+      fetch("https://uchatorg.herokuapp.com/api/channels/list", {
+        method: "POST",
+        headers: {
+          "token": this.token
+        }
+      }).then(function (json) {
+
+        json.json().then(function (final) {
+
+          if (final) {
+            console.log(final.channels);
+            for (var i = 0; i < final.channels.length; i++) {
+              self.channels.push(final.channels[i])
+            }
+
+          } else {
+
+            alert("Error with your credentials");
+
+          }
+
+        });
+      });
+
+
+
+      let socket = new WebSocket("ws://localhost:8889/ws")
+      console.log("Attempting Websocket Connection")
+      socket.onopen = () => {
+          console.log("Successfully Connected")
+          this.socket = socket
+          self.emit("handshake", "handshake", JSON.stringify({ authorization: this.token}))
+      }
+
+      socket.onclose = (event) => {
+          console.log("Socket Closed Connection: ", event)
+      }
+
+      socket.onmessage = (msg) => {
+          msg = JSON.parse(msg.data)
+          self.slog(msg.content)
+          console.log(msg)
+      }
+      socket.onerror = (error) => {
+          console.log("Socket Error: ", error)
+      }
+
+
+
     }
+
+
+
+
+
   },
+  methods : {
+    send: function () {
+        var self = this;
+        if (this.newMsg != '') {
+
+            var query = this.newMsg
+
+            self.disp(query);
+
+            this.newMsg = ''; // Reset newMsg
+
+
+        }
+
+
+    },
+
+    disp: function(content) {
+
+        var self = this;
+
+            var msg = content
+            self.chatContent += '<div class="post">'
+                    + '<img src="' + this.user.avatar +'">' // Avatar
+                    + this.user.username
+                + '</div>'
+                + msg + '<br/>';
+
+            var element = document.getElementById('chat-messages');
+            element.scrollTop = element.scrollHeight; // Auto scroll to the bottom
+    },
+    emit: function(event, content, data){
+        this.socket.send(
+                JSON.stringify({
+                    content: content,
+                    type: this.Type,
+                    event: event,
+                    data: data
+                }));
+    }
+  }
 };
 </script>
 
