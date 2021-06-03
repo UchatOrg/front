@@ -17,7 +17,7 @@
     <div id="usermodal" class="overlay">
       <span class="closebtn" v-on:click="closeusermodal" title="Close Overlay">×</span>
       <div class="overlay-content">
-        <form @submit.prevent="updateuser">
+
           <div class="door">
 
            <div class="container">
@@ -27,21 +27,34 @@
             class="input"
             type="text"
             id="bio"
-            :placeholder="user.bio"
-            />
+            placeholder="bio">
+            ></textarea>
           </div>
           <div class="container">
             <p class="p">Your tags:</p>
+
             <input
-            v-model="edittags"
             class="input"
             type="text"
             id="tags"
-            :placeholder="user.tags"
+            placeholder="add a tag"
+            v-model="inputtag"
             />
+            <button class="button" @click="addtag">+</button><button class="button" @click="cleartags">clear</button>
+            <br>
+            <br>
+            {{ edittags }}
           </div>
+
+          <div class="container">
+
+            <button class="button" type="submit" name="button" @click="updateuser">Submit</button>
+          </div>
+
+
+
         </div>
-          </form>
+
       </div>
     </div>
 
@@ -109,7 +122,10 @@ export default {
     return {
       token: "",
       user: "",
-      searchcontent: ""
+      searchcontent: "",
+      editbio: "",
+      edittags: [],
+      inputtag: ""
     };
   },
   created: function () {
@@ -130,6 +146,8 @@ export default {
           if (final) {
             self.user = final.user;
             localStorage.setItem("username", final.user.username);
+            self.editbio = final.user.bio
+            self.edittags = final.user.tags
           } else {
             alert("Error with your credentials");
           }
@@ -159,20 +177,34 @@ export default {
       localStorage.clear();
       window.location = "/login"
     },
+    addtag: function () {
+      if (this.inputtag.length > 0) {
+        this.edittags.push(this.inputtag)
+        this.inputtag = ""
+      }
+
+    },
+    cleartags: function () {
+      this.edittags = []
+      this.inputtag = ""
+
+    },
     updateuser: function () {
 
       var self = this;
       fetch("https://uchatorg.herokuapp.com/api/settings/user", {
         method: "POST",
         headers: {
-          "token": this.token,
-          "bio": this.bio
+          "token": self.token,
+          "bio": self.editbio,
+          "tags": self.edittags
         },
       }).then(function (json) {
         json.json().then(function (final) {
           if (final) {
             self.user = final.user;
             alert("User Updated")
+            self.closeusermodal()
           } else {
             alert("Error with your credentials");
           }
@@ -353,19 +385,7 @@ export default {
 }
 
 
-.overlay button {
-  float: left;
-  width: 20%;
-  padding: 15px;
-  background: #ddd;
-  font-size: 17px;
-  border: none;
-  cursor: pointer;
-}
 
-.overlay button:hover {
-  background: #bbb;
-}
 
 .overlay-search input[type=text] {
   padding: 15px;
@@ -404,7 +424,8 @@ export default {
 }
 
 ::placeholder {
-  color: white;
+  color: #ddd;
+  font-style: oblique;
 }
 
 .door .button {

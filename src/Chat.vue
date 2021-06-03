@@ -92,17 +92,15 @@
             </div>
 
 
-            <div class="active user">
-              <img :src="user.avatar" width="10%"> Sara
+          <!--
+          <div class="messages" v-for="members in activeChannel.members" v-bind:key="member._id">
+            <div class="user">
+              <img :src="member.avatar" width="10%"> {{ member}}
             </div>
             <br>
-            <div class="user">
-              <img :src="user.avatar" width="10%"> Lisa
-            </div>
-            <br>
-            <div class="user">
-              <img :src="user.avatar" width="10%"> Vivi
-            </div>
+          </div>-->
+
+
 
           </div>
         </div>
@@ -123,12 +121,13 @@ export default {
       channels: [],
       newMsg: '',
       currentRoom: '',
-      messages: []
+      messages: [],
+      activeChannel: ""
     };
   },
   created: function () {
 
-
+    Object.assign(this.$data, this.$options.data())
     var self = this;
     var token = localStorage.getItem("token");
     if (token == null) {
@@ -176,7 +175,8 @@ export default {
 
 
 
-      let socket = new WebSocket("ws://uchatws.herokuapp.com/ws")
+      let socket = new WebSocket("ws:/localhost:8889/ws")
+      console.log(socket);
       console.log("Attempting Websocket Connection")
       socket.onopen = () => {
           console.log("Successfully Connected")
@@ -215,6 +215,9 @@ export default {
         if (this.newMsg != '') {
 
             var query = this.newMsg
+            if (query == "arraystatus") {
+              self.emit("arraystatus", null,  null)
+            }
             var channelid = this.currentRoom
             self.dispmine(query);
             var data = JSON.stringify({
@@ -266,11 +269,31 @@ export default {
                 }));
     },
     loadchannel: function(channelid){
-      this.newMsg = ''
-      this.currentRoom = ''
-      this.messages = []
+      var self = this
+      self.newMsg = ''
+      self.currentRoom = ''
+      self.messages = []
+      self.currentRoom = channelid
+      fetch("https://uchatorg.herokuapp.com/api/info/channel", {
+        method: "POST",
+        headers: {
+          "token": self.token,
+          "channelid": channelid
+        },
+      }).then(function (json) {
+        json.json().then(function (final) {
+          if (final) {
+            self.activeChannel = final.channel;
+            console.log(final.channel.members);
+          } else {
+            alert("Error with your credentials");
+          }
+        });
+      });
 
-      this.currentRoom = channelid
+
+
+
       var data1 = JSON.stringify({
       authorization: this.token
         })
