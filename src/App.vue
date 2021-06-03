@@ -20,26 +20,26 @@
         <form @submit.prevent="updateuser">
           <div class="door">
 
-          <!-- <div class="container">
+           <div class="container">
             <p class="p">Your bio:</p>
-            <input
-            v-model="bio"
+            <textarea
+            v-model="editbio"
             class="input"
             type="text"
             id="bio"
-            placeholder="bio"
+            :placeholder="user.bio"
             />
           </div>
           <div class="container">
             <p class="p">Your tags:</p>
             <input
-            v-model="tags"
+            v-model="edittags"
             class="input"
             type="text"
             id="tags"
-            placeholder="tags"
+            :placeholder="user.tags"
             />
-          </div>-->
+          </div>
         </div>
           </form>
       </div>
@@ -158,6 +158,26 @@ export default {
     logout: function () {
       localStorage.clear();
       window.location = "/login"
+    },
+    updateuser: function () {
+
+      var self = this;
+      fetch("https://uchatorg.herokuapp.com/api/settings/user", {
+        method: "POST",
+        headers: {
+          "token": this.token,
+          "bio": this.bio
+        },
+      }).then(function (json) {
+        json.json().then(function (final) {
+          if (final) {
+            self.user = final.user;
+            alert("User Updated")
+          } else {
+            alert("Error with your credentials");
+          }
+        });
+      });
     },
   }
 };

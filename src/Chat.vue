@@ -176,7 +176,7 @@ export default {
 
 
 
-      let socket = new WebSocket("ws://localhost:8889/ws")
+      let socket = new WebSocket("ws://uchatws.herokuapp.com/ws")
       console.log("Attempting Websocket Connection")
       socket.onopen = () => {
           console.log("Successfully Connected")
@@ -269,7 +269,7 @@ export default {
       this.newMsg = ''
       this.currentRoom = ''
       this.messages = []
-      
+
       this.currentRoom = channelid
       var data1 = JSON.stringify({
       authorization: this.token
