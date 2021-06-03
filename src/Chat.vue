@@ -40,7 +40,7 @@
               <br>
               <div class="convs" v-for="channel in channels.reverse()" v-bind:key="channel._id">
                   <div class="post">
-                      <div class="conv">
+                      <div class="conv" v-on:click="loadchannel(channel._id)">
                         <img :src="user.avatar" width="10%"> {{ channel.name}}
                       </div>
                     </div>
@@ -59,10 +59,27 @@
             </div>
             </div>
           <div class="middle">
-            <div id="chat-messages" class="card-content" v-html="chatContent">
+            <div class="container">
+            <div class="messages" v-for="message in messages" v-bind:key="message._id">
+
+              <div class="post">
+
+                <div class="username">
+                  {{ message.username}}
+                </div>
+                <div class="content">
+                  {{ message.content }}
+                </div>
+
+
+
+
+
+              </div>
+                <br>
+
             </div>
-            <div class="chat">
-            </div>
+          </div>
             <div class="form">
               <button class="button" @click="send"><img src="https://i.imgur.com/3lrMwcn.png"></button>
               <input class="input" v-model="newMsg" @keyup.enter="send">
@@ -105,8 +122,8 @@ export default {
       user: "",
       channels: [],
       newMsg: '',
-      chatContent: '',
-      currentRoom: ''
+      currentRoom: '',
+      messages: []
     };
   },
   created: function () {
@@ -173,8 +190,8 @@ export default {
 
       socket.onmessage = (msg) => {
           msg = JSON.parse(msg.data)
-          self.slog(msg.content)
           console.log(msg)
+          this.messages.push(msg)
       }
       socket.onerror = (error) => {
           console.log("Socket Error: ", error)
@@ -190,14 +207,21 @@ export default {
 
   },
   methods : {
+
+
+
     send: function () {
         var self = this;
         if (this.newMsg != '') {
 
             var query = this.newMsg
-
-            self.disp(query);
-
+            var channelid = this.currentRoom
+            self.dispmine(query);
+            var data = JSON.stringify({
+            channelid: channelid,
+            authorization: this.token
+              })
+            self.emit("message", query,  data)
             this.newMsg = ''; // Reset newMsg
 
 
@@ -206,16 +230,29 @@ export default {
 
     },
 
-    disp: function(content) {
+    dispmine: function(content) {
 
-        var self = this;
+      this.messages.push({
+        username: this.user.username,
+        content: content,
+        avatar: this.user.avatar
+      })
+    },
+    disp: function(message) {
 
-            var msg = content
-            self.chatContent += '<div class="post">'
-                    + '<img src="' + this.user.avatar +'">' // Avatar
-                    + this.user.username
+          var avatar = message.avatar
+          var content = message.content
+          var username = message.username
+
+          console.log(avatar);
+          console.log(content);
+          console.log(username);
+
+          self.chatContent += '<div class="post">'
+                    + '<img src="' + avatar + '">' // Avatar
+                    + username
                 + '</div>'
-                + msg + '<br/>';
+                + content + '<br/>'
 
             var element = document.getElementById('chat-messages');
             element.scrollTop = element.scrollHeight; // Auto scroll to the bottom
@@ -224,8 +261,31 @@ export default {
         this.socket.send(
                 JSON.stringify({
                     content: content,
-                    type: this.Type,
                     event: event,
+                    data: data
+                }));
+    },
+    loadchannel: function(channelid){
+      this.newMsg = ''
+      this.currentRoom = ''
+      this.messages = []
+      
+      this.currentRoom = channelid
+      var data1 = JSON.stringify({
+      authorization: this.token
+        })
+
+      this.emit("joinroom", this.currentRoom, data1)
+
+
+      var data = JSON.stringify({
+      channelid: channelid,
+      authorization: this.token
+        })
+        this.socket.send(
+                JSON.stringify({
+                    type: this.Type,
+                    event: "disp",
                     data: data
                 }));
     }
@@ -335,6 +395,8 @@ export default {
 .app .middle {
   background-color: #F8E3EC;
   width: 60%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .app .right {
@@ -351,7 +413,7 @@ export default {
 
 .app .container .post {
   width: 90%;
-  background-color: #F8E3EC;
+  background-color: #5487BB;;
   border-radius: 10px;
   padding: 10%;
 }
@@ -502,4 +564,7 @@ export default {
   border-radius: 50%;
   display: inline;
 }
+
+
+
 </style>

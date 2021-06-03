@@ -136,8 +136,6 @@ export default {
           } else {
             alert("User not found");
             window.location="/app"
-
-          self.user = user
           }
         });
       });
